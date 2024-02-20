@@ -1,0 +1,72 @@
+get http://localhost:4004/odata/v4/catalog/ControlProperty?$filter=controlID eq a965914c-ebc3-4b76-a060-0af0d3bdc874 and propertyName eq 'VPTest2'
+
+###
+
+get http://localhost:4004/odata/v4/catalog/Control/9223b912-5b77-4ea2-a926-fc24f5ca27b0
+###
+
+
+POST http://localhost:4004/odata/v4/catalog/ControlProperty
+Content-Type: application/json
+
+{
+"propertyName":"VPTest2",
+"propertyValue":"Main layout test"
+}
+
+
+###
+
+POST http://localhost:4004/odata/v4/catalog/Layout
+Content-Type: application/json
+
+{
+    "layout_name":"Guna"
+}
+
+###
+
+POST http://localhost:4004/odata/v4/catalog/Control
+Content-Type: application/json
+
+{
+    "layout_id": "0a74c574-24e0-4b21-b1ff-b525f3f57661",
+    "ParentID":null,
+    "isContainer":true,
+    "controltype":"VBox"
+}
+
+###
+
+Delete  http://localhost:4004/odata/v4/catalog/Layout/0a74c574-24e0-4b21-b1ff-b525f3f57661
+
+
+###
+PATCH  http://localhost:4004/odata/v4/catalog/ControlProperty(controlID="9223b912-5b77-4ea2-a926-fc24f5ca27b0",propertyName="500px")
+Content-Type: application/json
+
+{
+   
+    "propertyValue":"500px"
+}
+
+###
+DELETE http://localhost:4004/odata/v4/catalog/ControlProperty(controlID=a965914c-ebc3-4b76-a060-0af0d3bdc874,propertyName='VPTest2')
+
+
+###
+
+
+delete http://localhost:4004/odata/v4/catalog/ControlProperty(controlID=37ea0f7a-c6b7-41f1-9e91-ea4bfa33a25f,propertyName='VPTest')
+
+
+
+###
+POST http://localhost:4004/odata/v4/catalog/ControlProperty
+Content-Type: application/json
+
+{
+    "controlID":"e690ac25-ec61-4711-bbb9-ffb86dee3bec",
+    "propertyName":"Width",
+    "propertyValue":"500px"
+}

@@ -1,0 +1,22 @@
+<mvc:View controllerName="designerui.controller.HomePage"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page title="Layout Designer Home">
+    <content>
+      <!-- Display Existing Layouts -->
+      <List
+        id="layoutList"
+        headerText="Existing Layouts"
+        items="{/layouts}">
+        <StandardListItem
+          title="{layoutName}"
+          description="{createdAt}"
+          press="onLayoutPress" />
+      </List>
+
+      <!-- Button to Add New Layout -->
+      <Button text="Add New Layout" press="onAddLayoutPress" />
+    </content>
+  </Page>
+
+</mvc:View>

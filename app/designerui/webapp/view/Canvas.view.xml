@@ -1,0 +1,109 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    controllerName="designerui.controller.Canvas"
+    xmlns:t="sap.ui.table"
+>
+    <App>
+        <pages>
+            <!-- Header -->
+            <Page title="Fiori Layout Designer">
+                <headerContent>
+                    <!-- Device View Buttons -->
+                    <SegmentedButton>
+                        <items>
+                            <SegmentedButtonItem text="Mobile" />
+                            <SegmentedButtonItem text="Desktop" />
+                            <SegmentedButtonItem text="Tablet" />
+                        </items>
+                    </SegmentedButton>
+
+                    <!-- Source Code Button -->
+                    <Button
+                        text="Source Code"
+                        press="onToggleSourceCode"
+                    />
+                </headerContent>
+
+                <!-- Content -->
+                <content>
+                    <l:ResponsiveSplitter defaultPane="default">
+                        <l:PaneContainer>
+                            <!-- Left Panel - Control Palette -->
+                            <l:SplitPane requiredParentWidth="400">
+                                <Panel height="100%">
+                                           <t:TreeTable
+            id="treeTable"
+             selectionMode="None"
+             cellClick="onTreeSelectionChange"
+          
+            
+            visibleRowCount="5"
+            rows="{/containers}"
+        >
+            <t:columns>
+                <t:Column>
+                    <Label text="Container Name" />
+                    <t:template>
+                        <Text text="{name}" />
+                    </t:template>
+                </t:Column>
+            </t:columns>
+        </t:TreeTable>
+                                     <VBox id="rightContent">
+                                    <!-- Content based on selection -->
+                                </VBox>
+                                </Panel>
+                               
+                                <l:layoutData>
+                                    <l:SplitterLayoutData size="20%" />
+                                </l:layoutData>
+                            </l:SplitPane>
+
+                            <!-- Add other controls here -->
+
+                            <!-- Center Panel - Canvas -->
+                            <l:SplitPane>
+                                <!-- Dynamically render controls based on user selection -->
+                                <l:VerticalLayout
+                                    id="designCanvas"
+                                    width="100%"
+                                    class="canvas"
+                                >
+                                    <!-- Controls added dynamically will appear here -->
+                                </l:VerticalLayout>
+                            </l:SplitPane>
+
+                            <!-- Right Panel - Properties -->
+                            <l:SplitPane>
+                                <!-- Fetch control properties from API and display them -->
+                                <!-- Example: Properties Panel -->
+                                <VBox>
+                                    <!-- Properties for selected control -->
+                                    <!-- Example: Input properties -->
+                                    <Input
+                                        placeholder="{/selectedControl/placeholder}"
+                                        value="{/selectedControl/value}"
+                                    />
+                                </VBox>
+                            </l:SplitPane>
+                        </l:PaneContainer>
+                    </l:ResponsiveSplitter>
+                </content>
+
+                <!-- Footer - Save Button -->
+                <footer>
+                    <Toolbar>
+                        <ToolbarSpacer />
+                        <Button
+                            type="Emphasized"
+                            text="Save"
+                            press="onPress"
+                        />
+                    </Toolbar>
+                </footer>
+            </Page>
+        </pages>
+    </App>
+</mvc:View>
