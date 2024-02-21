@@ -33,29 +33,29 @@
                             <!-- Left Panel - Control Palette -->
                             <l:SplitPane requiredParentWidth="400">
                                 <Panel height="100%">
-                                           <t:TreeTable
-            id="treeTable"
-             selectionMode="None"
-             cellClick="onTreeSelectionChange"
-          
-            
-            visibleRowCount="5"
-            rows="{/containers}"
-        >
-            <t:columns>
-                <t:Column>
-                    <Label text="Container Name" />
-                    <t:template>
-                        <Text text="{name}" />
-                    </t:template>
-                </t:Column>
-            </t:columns>
-        </t:TreeTable>
-                                     <VBox id="rightContent">
-                                    <!-- Content based on selection -->
-                                </VBox>
+                                    <Button
+                                        text="AddContainer"
+                                        press="AddContainer"
+                                    />
+                                    <t:TreeTable
+                                        id="treeTable"
+                                        selectionMode="None"
+                                        cellClick="onTreeSelectionChange"
+                                        rows="{treeTableData>/containers}"
+                                    >
+                                        <t:columns>
+                                            <t:Column>
+                                                <Label text="Container Name" />
+                                                <t:template>
+                                                    <Text
+                                                        text="{treeTableData>name}"
+                                                    />
+                                                </t:template>
+                                            </t:Column>
+                                        </t:columns>
+                                    </t:TreeTable>
                                 </Panel>
-                               
+
                                 <l:layoutData>
                                     <l:SplitterLayoutData size="20%" />
                                 </l:layoutData>
@@ -80,12 +80,23 @@
                                 <!-- Fetch control properties from API and display them -->
                                 <!-- Example: Properties Panel -->
                                 <VBox>
-                                    <!-- Properties for selected control -->
-                                    <!-- Example: Input properties -->
-                                    <Input
-                                        placeholder="{/selectedControl/placeholder}"
-                                        value="{/selectedControl/value}"
-                                    />
+                                   
+
+                                    <!-- Wrapper VBox -->
+                                    <VBox>
+                                        <!-- Inner VBox with properties -->
+                                        <VBox id="rightSidePanel">
+                                            <!-- Your properties here -->
+                                        </VBox>
+
+                                        <!-- OK Button in HBox -->
+                                        <HBox>
+                                            <Button
+                                                text="OK"
+                                                press="onOKPress"
+                                            />
+                                        </HBox>
+                                    </VBox>
                                 </VBox>
                             </l:SplitPane>
                         </l:PaneContainer>
@@ -106,4 +117,36 @@
             </Page>
         </pages>
     </App>
+    <Popover
+        id="addContainerPopover"
+        title="Select Container"
+        placement="Bottom"
+        class="sapUiContentPadding"
+        contentWidth="200px"
+    >
+        <!-- Bind the List items to the model -->
+        <List items="{/containers}">
+            <StandardListItem
+                title="{name}"
+                type="Active"
+                press="onContainerOptionPress"
+            />
+        </List>
+    </Popover>
+    <Popover
+        id="forControls"
+        title="Select Controls"
+        placement="Bottom"
+        class="sapUiContentPadding"
+        contentWidth="200px"
+    >
+        <!-- Bind the List items to the model -->
+        <List items="{controlModel>/controls}">
+            <StandardListItem
+                title="{controlModel>name}"
+                type="Active"
+                press="onContainerOptionPress"
+            />
+        </List>
+    </Popover>
 </mvc:View>
