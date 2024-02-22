@@ -4,6 +4,7 @@
     xmlns:l="sap.ui.layout"
     controllerName="designerui.controller.Canvas"
     xmlns:t="sap.ui.table"
+    xmlns:core="sap.ui.core"
 >
     <App>
         <pages>
@@ -37,23 +38,33 @@
                                         text="AddContainer"
                                         press="AddContainer"
                                     />
-                                    <t:TreeTable
-                                        id="treeTable"
-                                        selectionMode="None"
-                                        cellClick="onTreeSelectionChange"
-                                        rows="{treeTableData>/containers}"
+                                    <Tree
+                                        id="Tree"
+                                        items="{path: '/items'}"
+                                        mode="None"
                                     >
-                                        <t:columns>
-                                            <t:Column>
-                                                <Label text="Container Name" />
-                                                <t:template>
-                                                    <Text
-                                                        text="{treeTableData>name}"
+                                        <CustomTreeItem>
+                                            <FlexBox
+                                                alignItems="Start"
+                                                width="100%"
+                                            >
+                                                <items>
+                                                    <Button
+                                                        icon="{ref}"
+                                                        press="AddContainer"
+                                                        class="sapUiSmallMarginEnd"
                                                     />
-                                                </t:template>
-                                            </t:Column>
-                                        </t:columns>
-                                    </t:TreeTable>
+                                                    <Text text="{text}">
+                                                        <layoutData>
+                                                            <FlexItemData
+                                                                growFactor="0"
+                                                            />
+                                                        </layoutData>
+                                                    </Text>
+                                                </items>
+                                            </FlexBox>
+                                        </CustomTreeItem>
+                                    </Tree>
                                 </Panel>
 
                                 <l:layoutData>
@@ -76,29 +87,6 @@
                             </l:SplitPane>
 
                             <!-- Right Panel - Properties -->
-                            <l:SplitPane>
-                                <!-- Fetch control properties from API and display them -->
-                                <!-- Example: Properties Panel -->
-                                <VBox>
-                                   
-
-                                    <!-- Wrapper VBox -->
-                                    <VBox>
-                                        <!-- Inner VBox with properties -->
-                                        <VBox id="rightSidePanel">
-                                            <!-- Your properties here -->
-                                        </VBox>
-
-                                        <!-- OK Button in HBox -->
-                                        <HBox>
-                                            <Button
-                                                text="OK"
-                                                press="onOKPress"
-                                            />
-                                        </HBox>
-                                    </VBox>
-                                </VBox>
-                            </l:SplitPane>
                         </l:PaneContainer>
                     </l:ResponsiveSplitter>
                 </content>
@@ -125,28 +113,52 @@
         contentWidth="200px"
     >
         <!-- Bind the List items to the model -->
-        <List items="{/containers}">
+        <List items="{metadataModel>/containerType}">
             <StandardListItem
-                title="{name}"
+                title="{metadataModel>Name}"
                 type="Active"
                 press="onContainerOptionPress"
             />
         </List>
     </Popover>
     <Popover
-        id="forControls"
-        title="Select Controls"
+        id="addControl"
+        title="Select Control"
         placement="Bottom"
         class="sapUiContentPadding"
         contentWidth="200px"
     >
         <!-- Bind the List items to the model -->
-        <List items="{controlModel>/controls}">
+        <List items="{metadataModel>/leafType}">
             <StandardListItem
-                title="{controlModel>name}"
+                title="{metadataModel>Name}"
                 type="Active"
-                press="onContainerOptionPress"
+                press="onControlOptionPress"
             />
         </List>
+    </Popover>
+
+    <Popover id="dropDown">
+        <content>
+            <Select
+                forceSelection="true"
+                selectedKey="{/SelectedValue}"
+                change="onChange"
+                
+            >
+                <core:ListItem
+                    key="Select"
+                    text="Select"
+                />
+                <core:ListItem
+                    key="Container"
+                    text="Container"
+                />
+                <core:ListItem
+                    key="LeafNode"
+                    text="LeafNode"
+                />
+            </Select>
+        </content>
     </Popover>
 </mvc:View>

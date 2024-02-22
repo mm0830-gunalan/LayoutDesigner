@@ -1,0 +1,70 @@
+{
+    "containerType" : [
+        {
+            "key" : "sap.m.HBox",
+            "Name" : "HBox"
+        },
+        {
+            "key" : "sap.m.VBox",
+            "Name" : "VBox"
+        },
+        {
+            "key" : "sap.ui.layout.Grid",
+            "Name" : "Grid"
+        },
+        {
+            "key" : "sap.m.FlexBox",
+            "Name" : "FlexBox"
+        },
+        {
+            "key":"sap.m.Input",
+            "Name":"Input"
+        }
+    ],
+    "leafType" : [
+        {
+            "key" : "sap.m.Input",
+            "Name" : "Input" 
+        },
+        {
+            "key" : "sap.m.Button",
+            "Name" : "Button" 
+        },
+        {
+            "key" : "sap.m.Text",
+            "Name" : "Text" 
+        },
+        {
+            "key" : "sap.m.CheckBox",
+            "Name" : "CheckBox" 
+        },
+        {
+            "key" : "sap.m.DatePicker",
+            "Name" : "DatePicker" 
+        },
+        {
+            "key" : "sap.m.Slider",
+            "Name" : "Slider" 
+        },
+        {
+            "key" : "sap.m.ComboBox",
+            "Name" : "ComboBox" 
+        },
+        {
+            "key" : "sap.m.List",
+            "Name" : "List" 
+        },
+        {
+            "key" : "sap.m.Link",
+            "Name" : "Link" 
+        },
+        {
+            "key" : "sap.m.Switch",
+            "Name" : "Switch" 
+        },
+        {
+            "key" : "sap.m.RadioButton",
+            "Name" : "RadioButton" 
+        }
+    ]
+}

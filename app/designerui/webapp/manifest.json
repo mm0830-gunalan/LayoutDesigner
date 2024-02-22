@@ -67,6 +67,11 @@
         "settings": {
           "bundleName": "designerui.i18n.i18n"
         }
+        
+      },
+      "metadataModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/data.json"
       },
       "": {
         "dataSource": "mainService",
