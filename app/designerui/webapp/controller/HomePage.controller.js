@@ -14,6 +14,11 @@ sap.ui.define([
             onAddLayoutPress: function () {
                 const oRouter = this.getOwnerComponent().getRouter();
 			    oRouter.navTo("newLayout");
+            },
+            onTree: function()
+            {
+                const oRouter = this.getOwnerComponent().getRouter();
+			    oRouter.navTo("newTree");
             }
         });
     });

@@ -1,5 +1,7 @@
 namespace my.bookshop;
 
+
+
 entity Books {
   key ID    : Integer;
       title : String;
@@ -7,10 +9,10 @@ entity Books {
 }
 
 // Layout Entity
-entity Layout {
+entity Layout  {
   key layout_id  : UUID;
    layout_name : String(255);
-      created_at : DateTime default CURRENT_TIMESTAMP;
+      created_at : DateTime  default CURRENT_TIMESTAMP;
       modifiedAt : DateTime default CURRENT_TIMESTAMP;
       controls   : Composition of many Control
                     on controls.layout_id = $self.layout_id;

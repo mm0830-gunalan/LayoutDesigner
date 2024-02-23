@@ -37,13 +37,16 @@
                                     <Button
                                         text="AddContainer"
                                         press="AddContainer"
+                                         
                                     />
                                     <Tree
                                         id="Tree"
                                         items="{path: '/items'}"
                                         mode="None"
+                                         
+                                        
                                     >
-                                        <CustomTreeItem>
+                                        <CustomTreeItem >
                                             <FlexBox
                                                 alignItems="Start"
                                                 width="100%"
@@ -51,10 +54,12 @@
                                                 <items>
                                                     <Button
                                                         icon="{ref}"
-                                                        press="AddContainer"
+                                                        press="AddContainerAsPlusButton"
                                                         class="sapUiSmallMarginEnd"
+                                                        enabled="{=!${buttonEnabled}}"
+                                                        
                                                     />
-                                                    <Text text="{text}">
+                                                    <Text text="{text}" class="sapUiTinyMargin">
                                                         <layoutData>
                                                             <FlexItemData
                                                                 growFactor="0"
@@ -108,7 +113,7 @@
     <Popover
         id="addContainerPopover"
         title="Select Container"
-        placement="Bottom"
+        placement="Auto"
         class="sapUiContentPadding"
         contentWidth="200px"
     >
@@ -122,9 +127,10 @@
         </List>
     </Popover>
     <Popover
+        
         id="addControl"
         title="Select Control"
-        placement="Bottom"
+        placement="Auto"
         class="sapUiContentPadding"
         contentWidth="200px"
     >
@@ -138,7 +144,7 @@
         </List>
     </Popover>
 
-    <Popover id="dropDown">
+    <Popover id="dropDown" placement="Auto">
         <content>
             <Select
                 forceSelection="true"

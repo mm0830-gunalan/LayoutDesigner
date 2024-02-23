@@ -21,7 +21,7 @@ POST http://localhost:4004/odata/v4/catalog/Layout
 Content-Type: application/json
 
 {
-    "layout_name":"Guna"
+    "layout_name":"lakife "
 }
 
 ###
@@ -38,7 +38,7 @@ Content-Type: application/json
 
 ###
 
-Delete  http://localhost:4004/odata/v4/catalog/Layout/0a74c574-24e0-4b21-b1ff-b525f3f57661
+Delete  http://localhost:4004/odata/v4/catalog/Layout/f27deaa4-33ce-4e4c-877e-bb15a57e60a3
 
 
 ###

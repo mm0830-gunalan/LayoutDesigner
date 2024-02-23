@@ -113,6 +113,11 @@
           "pattern": "newLayout",
           "name": "newLayout",
           "target": ["newLayout"]
+      },
+      {
+        "pattern": "newTree",
+        "name": "newTree",
+        "target": ["newTree"]
       }
       ],
       "targets": {
@@ -130,7 +135,15 @@
           "viewId": "Canvas",
           "viewName": "Canvas"
           
-      }
+      },
+      "newTree": {
+        "viewType": "XML",
+        "transition": "slide",
+        "clearControlAggregation": false,
+        "viewId": "Tree",
+        "viewName": "Tree"
+        
+    }
       }
     },
     "rootView": {
