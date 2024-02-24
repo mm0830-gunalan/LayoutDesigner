@@ -102,7 +102,7 @@
                         <ToolbarSpacer />
                         <Button
                             type="Emphasized"
-                            text="Save"
+                            text="SaveLayout"
                             press="onPress"
                         />
                     </Toolbar>
