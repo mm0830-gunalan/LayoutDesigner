@@ -21,7 +21,7 @@ sap.ui.define([
                     items: [
 
                     ],
-                    nodes: [] // Initialize with an empty array
+                    // nodes: [] // Initialize with an empty array
                 });
 
                 // Set the model to the view
@@ -29,14 +29,15 @@ sap.ui.define([
 
 
 
+
+
             },
             AddContainerAsPlusButton: function (oEvent) {
-                console.log("this is og Event");
-                console.log(oEvent);
+
                 temp = true;
-                console.log("clone");
+
                 globaloEvent = oEvent;
-                console.log(globaloEvent);
+
                 var oBindingContext = oEvent.getSource().getBindingContext();
                 console.log("true mode getting path");
                 console.log(oBindingContext);
@@ -159,6 +160,7 @@ sap.ui.define([
 
                     // Create a new node
                     var oNewNode = {
+
                         text: sContainerType,
                         ref: "sap-icon://add",
                         "ParentID": sParentContainerId,
@@ -237,7 +239,7 @@ sap.ui.define([
 
             },
             onControlOptionPress: function (oEvent) {
-                var that=this;
+                var that = this;
                 var oModel = this.getView().getModel();
 
 
@@ -302,7 +304,7 @@ sap.ui.define([
                         text: sContainerType,
                         ref: "sap-icon://add",
                         ParentID: sParentContainerId,
-                        "parentid": oContainer.getId(),
+                        "parentId": oContainer.getId(),
                         "isContainer": false,
                         buttonEnabled: true
 
@@ -348,10 +350,16 @@ sap.ui.define([
                     //     // Handle the case when the parent container reference is not found
                     //     console.error("Parent container not found.");
                     // }
+
+                    console.log(bItems);
+
                 }
 
                 this.getView().byId("addControl").close();
             },
+
+
+
 
 
 
@@ -362,9 +370,9 @@ sap.ui.define([
                 // Get the model and the current state of the layout
                 var oModel = this.getView().getModel();
                 var aItems = oModel.getProperty("/items");
-                var bItems = oModel.getProperty("/nodes");
+
                 console.log(aItems);
-                console.log(bItems);
+
 
                 let that = this
 
@@ -383,7 +391,7 @@ sap.ui.define([
                     if (item.isContainer !== undefined) {
                         // Create a new Control entity
                         var oControl = {
-                            controlId: that.generateUUID(),
+                            controlId: item.parentId,
                             layout_id: oPayload.layout_id,
                             ParentID: item.ParentID || null,
                             isContainer: item.isContainer,
@@ -412,12 +420,27 @@ sap.ui.define([
                         oPayload.controls.push(oControl);
                     }
                 });
-                bItems.forEach(function (item) {
+
+
+                var allNodes = [];
+
+                // Iterate through items
+                oModel.getProperty("/items").forEach(function (item) {
+                    // Check if the item has nodes
+                    if (item.nodes && item.nodes.length > 0) {
+                        // Iterate through nodes
+                        item.nodes.forEach(function (node) {
+                            allNodes.push(node);
+                        });
+                    }
+                });
+                
+                allNodes.forEach(function (item) {
                     // Check if the item represents a control
                     if (item.isContainer !== undefined) {
                         // Create a new Control entity
                         var oControl = {
-                            controlId: that.generateUUID(),
+                            controlId: item.parentId,
                             layout_id: oPayload.layout_id,
                             ParentID: item.ParentID || null,
                             isContainer: item.isContainer,

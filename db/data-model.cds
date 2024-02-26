@@ -10,7 +10,7 @@ entity Books {
 // Layout Entity
 
 entity Layout {
-  key layout_id   : String;
+  key layout_id   : UUID;
       layout_name : String(255);
       created_at  : DateTime default CURRENT_TIMESTAMP;
       modifiedAt  : DateTime default CURRENT_TIMESTAMP;

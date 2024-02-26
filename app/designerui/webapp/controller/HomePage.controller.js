@@ -38,7 +38,7 @@ sap.ui.define([
                
                 console.log(value);
                 const oRouter = this.getOwnerComponent().getRouter();
-			    oRouter.navTo("newLayout");
+		
                 var data={
                     
                     "layout_name":value
@@ -54,6 +54,7 @@ sap.ui.define([
                         success : function(res)
                         {
                             console.log(res);
+                            oRouter.navTo("newLayout");
                             
                         },
                         error: function(er)

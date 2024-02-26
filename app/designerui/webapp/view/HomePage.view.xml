@@ -10,10 +10,10 @@
             <List
                 id="layoutList"
                 headerText="Existing Layouts"
-                items="{/layouts}"
+                items="{/Layout}"
             >
                 <StandardListItem
-                    title="{layoutName}"
+                    title="{layout_name}"
                     description="{createdAt}"
                     press="onLayoutPress"
                 />

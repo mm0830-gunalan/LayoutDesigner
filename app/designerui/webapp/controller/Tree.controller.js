@@ -57,7 +57,7 @@ sap.ui.define([
                     "ref": "sap-icon://customer-financial-fact-sheet"
                 }
             ]);
-            this.getView().setModel(oModel);
+            this.getView().setModel(oModel,"gu");
 
         },
 
