@@ -73,7 +73,7 @@
         "type": "sap.ui.model.json.JSONModel",
         "uri": "model/data.json"
       },
-      "": {
+      "oDataModel": {
         "dataSource": "mainService",
         "preload": true,
         "settings": {
@@ -110,7 +110,7 @@
           ]
         },
         {
-          "pattern": "newLayout",
+          "pattern": "newLayout/{id}",
           "name": "newLayout",
           "target": ["newLayout"]
       },

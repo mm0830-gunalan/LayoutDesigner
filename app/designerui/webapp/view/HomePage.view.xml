@@ -10,11 +10,13 @@
             <List
                 id="layoutList"
                 headerText="Existing Layouts"
-                items="{/Layout}"
+                items="{oDataModel>/Layout}"
             >
                 <StandardListItem
-                    title="{layout_name}"
-                    description="{createdAt}"
+                    title="{oDataModel>layout_name}"
+                    info="{oDataModel>layout_id}"
+                    description="{oDataModel>created_at}"
+                    type="Active"
                     press="onLayoutPress"
                 />
             </List>
