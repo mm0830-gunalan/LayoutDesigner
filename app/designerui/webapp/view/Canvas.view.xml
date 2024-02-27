@@ -21,10 +21,11 @@
                     </SegmentedButton>
 
                     <!-- Source Code Button -->
-                    <Button
+                    <!-- <Button
                         text="Source Code"
                         press="onToggleSourceCode"
-                    />
+                    /> -->
+                    <Button text="dialog" press="onOpenDialog"></Button>
                 </headerContent>
 
                 <!-- Content -->
@@ -104,6 +105,7 @@
                             type="Emphasized"
                             text="SaveLayout"
                             press="onPress"
+                            icon="sap-icon://save"
                         />
                     </Toolbar>
                 </footer>

@@ -5,16 +5,17 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
-
+    "sap/m/MessageBox"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, JSONModel) {
+    function (Controller, JSONModel, MessageBox) {
         "use strict";
         var temp;
         var globaloEvent;
         var idLayout;
+        var controlType;
 
 
         return Controller.extend("designerui.controller.HomePage", {
@@ -29,6 +30,8 @@ sap.ui.define([
 
                 // Set the model to the view
                 this.getView().setModel(oModel);
+                this.getView().getModel().setProperty("/containerSelected", false);
+                this.getView().getModel().setProperty("/leafSelected", false);
 
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                 oRouter.getRoute("newLayout").attachPatternMatched(this.onObjectMatched, this);
@@ -37,35 +40,36 @@ sap.ui.define([
 
 
             },
-            
-            
+
+
             onObjectMatched: function (oEvent) {
-                var that=this;
+                var that = this;
                 var oArgs = oEvent.getParameter("arguments");
                 var itemId = oArgs.id;
                 idLayout = itemId;
                 console.log(idLayout);
-                var view=that.getView().byId("designCanvas");
+                var view = that.getView().byId("designCanvas");
                 view.destroyContent();
                 this.bindingData();
             },
             bindingData() {
 
                 var oModel = this.getView().getModel();
-                this.getView().getModel().setProperty("/items",[]);
+                this.getView().getModel().setProperty("/items", []);
                 var that = this;
-                // Replace with your layout ID
+
                 var url = "https://port4004-workspaces-ws-6pbtq.us10.trial.applicationstudio.cloud.sap/odata/v4/catalog/Layout(" + idLayout + ")?$expand=controls($expand=controlProperties)";
 
                 $.ajax({
                     url: url,
                     method: 'GET',
                     success: function (data) {
-                        // Handle the successful response and work with the data
+
+
                         console.log("Data:")
                         var controlsArray = data.controls;
                         // console.log(controlsArray);
-                     
+
                         var customData = [];
                         var childControls = [];
                         // Loop through the controls array
@@ -97,8 +101,7 @@ sap.ui.define([
                             // Check if ParentID is null, then add to customData
                             if (control.ParentID !== null) {
                                 var parentItem = that.findItemById(oModel.getData().items, control.ParentID);
-                                console.log("parentI");
-                                console
+
 
 
                                 // // Add the custom item to the parent's nodes array
@@ -106,13 +109,13 @@ sap.ui.define([
                             } else {
                                 customData.push(customItem);
 
-                               oModel.getData().items.push(customItem);
+                                oModel.getData().items.push(customItem);
                             }
                         });
-                        
+
 
                         // Set the customData array to the model
-                    //    oModel.setProperty({ items: customData });
+                        //    oModel.setProperty({ items: customData });
 
                         // Refresh the model to reflect the changes
                         that.getView().getModel().refresh();
@@ -158,7 +161,7 @@ sap.ui.define([
                         break;
                 }
                 var oCenterPage = this.getView().byId("designCanvas");
-                
+
                 oCenterPage.addContent(oContainer);
                 console.log(oContainer.getId());
 
@@ -213,10 +216,13 @@ sap.ui.define([
 
                 // Check if the parent container reference exists
                 if (oParentContainer) {
+
+
                     // Add the new control to the parent container
                     oParentContainer.addItem(oContainer);
                 } else {
-                    // Handle the case when the parent container reference is not found
+
+
                     console.error("Parent container not found.");
                 }
 
@@ -236,6 +242,8 @@ sap.ui.define([
                 }
                 return null;
             },
+
+
             AddContainerAsPlusButton: function (oEvent) {
 
                 temp = true;
@@ -248,20 +256,17 @@ sap.ui.define([
                 var oContext = oEvent.getSource().getBindingContext();
 
                 // Retrieve the value of the 'text' property from the context
-                var sTextValue = oContext.getProperty("text");
+                // var sTextValue = oContext.getProperty("text");
 
                 // Use the retrieved value as needed
-                console.log("Text Value:", sTextValue);
+                //console.log("Text Value:", sTextValue);
 
 
-                console.log(oEvent);
+                this.pDialog ??= this.loadFragment({
+                    name: "designerui.view.Control"
+                });
 
-                var oButton = oEvent.getSource();
-                var oPopover = this.getView().byId("dropDown");
-
-
-
-                oPopover.openBy(oButton);
+                this.pDialog.then((oDialog) => oDialog.open());
             },
 
 
@@ -274,18 +279,25 @@ sap.ui.define([
                 temp = false;
 
                 console.log(oEvent);
+                this.pDialog ??= this.loadFragment({
+                    name: "designerui.view.Control"
+                });
 
-                var oButton = oEvent.getSource();
-                var oPopover = this.getView().byId("dropDown");
+                this.pDialog.then((oDialog) => oDialog.open());
+
+                // var oButton = oEvent.getSource();
+                // var oPopover = this.getView().byId("dropDown");
 
 
 
-                oPopover.openBy(oButton);
+                // oPopover.openBy(oButton);
 
             },
-            onContainerOptionPress: function (oEvent) {
+            onContainerOptionPress: function (type) {
 
-                var sContainerType = oEvent.oSource.mProperties.title
+
+
+                var sContainerType = type;
                 var oModel = this.getView().getModel();
 
                 var oSelectedNode = this.getView().getModel().getProperty("/selectedNode");
@@ -307,7 +319,7 @@ sap.ui.define([
                         oContainer = new sap.m.Input({ placeholder: "Enter text", id: "control_" + new Date().getTime() });
                         break;
                     default:
-                        // Handle unknown container type
+
                         break;
                 }
 
@@ -442,12 +454,12 @@ sap.ui.define([
                 // dropView.close();
 
             },
-            onControlOptionPress: function (oEvent) {
+            onControlOptionPress: function (type) {
                 var that = this;
                 var oModel = this.getView().getModel();
 
 
-                var sContainerType = oEvent.oSource.mProperties.title
+                var sContainerType = type;
                 // console.log(sel);
 
                 var oContainer;
@@ -582,11 +594,11 @@ sap.ui.define([
 
                 // Construct the payload to be sent to the backend
                 var oPayload = {
-                    // Replace with the actual layout name
+
                     controls: [] // Array to store controls and their properties
                 };
 
-                // Create a unique layout_id
+                // layoutID is coming from paramter as a Global variable
                 oPayload.layout_id = idLayout;
 
                 // Iterate over each item in the layout
@@ -626,29 +638,15 @@ sap.ui.define([
                 });
 
 
-                // var allNodes = [];
-
-                // // Iterate through items
-                // oModel.getProperty("/items").forEach(function (item) {
-                //     // Check if the item has nodes
-                //     if (item.nodes && item.nodes.length > 0) {
-                //         // Iterate through nodes
-                //         item.nodes.forEach(function (node) {
-                //             allNodes.push(node);
-                //         });
-                //     }
-                // });
-                // console.log(allNodes);
-
-                // recursie funtion for fetching the child, grandchild and so on
 
 
 
-                function flattenNodes(item, flattenedNodes) {
+
+                function childLeaf(item, flattenedNodes) {
                     if (item.nodes && item.nodes.length > 0) {
                         item.nodes.forEach(function (node) {
                             flattenedNodes.push(node);
-                            flattenNodes(node, flattenedNodes);
+                            childLeaf(node, flattenedNodes);
                         });
                     }
                 }
@@ -656,13 +654,13 @@ sap.ui.define([
 
                 var allNodes = [];
 
-                // Iterate through items
+
                 oModel.getProperty("/items").forEach(function (item) {
                     // Add the current item to allNodes
 
 
-                    // Flatten nodes recursively
-                    flattenNodes(item, allNodes);
+                    // Getting child nodes using recursion
+                    childLeaf(item, allNodes);
                 });
 
                 console.log("printign child");
@@ -707,15 +705,25 @@ sap.ui.define([
                 console.log(oPayload);
 
                 var url = "https://port4004-workspaces-ws-6pbtq.us10.trial.applicationstudio.cloud.sap/odata/v4/catalog/Layout(" + idLayout + ")";
-                // Make an AJAX call to your backend to save the layout
+                // TO save the layout on the Database
                 $.ajax({
                     url: url,
-                  //  url: that.getOwnerComponent().getModel().getServiceUrl() + 'Layout(' + idLayout + ')',
+                    //  url: that.getOwnerComponent().getModel().getServiceUrl() + 'Layout(' + idLayout + ')',
                     method: 'PATCH',
                     contentType: 'application/json',
                     data: JSON.stringify(oPayload),
                     success: function (res) {
                         console.log("Layout saved successfully:", res);
+                        MessageBox.success("Saved Successfully !", {
+                            title: "Success",
+                            //  onClose: null,                                       
+
+                            actions: sap.m.MessageBox.Action.OK,
+                            emphasizedAction: sap.m.MessageBox.Action.OK,
+
+
+                        });
+
                     },
                     error: function (err) {
                         console.error("Error saving layout:", err);
@@ -730,10 +738,49 @@ sap.ui.define([
                         v = c === 'x' ? r : (r & 0x3 | 0x8);
                     return v.toString(16);
                 });
-            }
+            },
 
 
+            //working for fragment
+            onOpenDialog() {
+                // create dialog lazily
+                this.pDialog ??= this.loadFragment({
+                    name: "designerui.view.Control"
+                });
 
+                this.pDialog.then((oDialog) => oDialog.open());
+            },
+            onSelectedControls: function (oEvent) {
+                var selectedContainerType = oEvent.getParameter('value');
+                controlType = selectedContainerType;
+                console.log(controlType);
+
+            },
+            onCloseDialog: function () {
+                var that = this;
+                var containerBoolean = this.getView().getModel().getProperty("/containerSelected");
+
+
+                if (containerBoolean) {
+                    that.onContainerOptionPress(controlType);
+                } else {
+                    that.onControlOptionPress(controlType);
+
+                }
+
+
+                this.byId("containerList").close();
+            },
+            onRadioButtonSelect: function (oEvent) {
+                var bContainerSelected = oEvent.getParameter("selectedIndex") === 0; // Index 0 is for Container
+                var bLeafSelected = !bContainerSelected;
+
+
+                this.getView().getModel().setProperty("/containerSelected", bContainerSelected);
+                this.getView().getModel().setProperty("/leafSelected", bLeafSelected);
+                var data = this.getView().getModel().getProperty("/containerSelected");
+                console.log(data);
+            },
 
 
 

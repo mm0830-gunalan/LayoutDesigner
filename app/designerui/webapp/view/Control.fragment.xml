@@ -1,0 +1,51 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+   xmlns:core="sap.ui.core">
+   <Dialog
+      id="containerList"
+      title="Select ">
+      	<HBox class="sapUiLargeMargin">
+		
+		<RadioButtonGroup id="selectWhichOne" select=".onRadioButtonSelect">
+			<RadioButton text="Container" selected="false" />
+			<RadioButton text="LeafNode" />
+			
+		</RadioButtonGroup>
+	</HBox>
+       
+        <ComboBox 
+        class="sapUiLargeMargin"
+        id="containerComboBox"
+        change="onSelectedControls"
+        visible="{/containerSelected}"
+        	items="{
+					path: 'metadataModel>/containerType',
+					sorter: { path: 'Name' }
+                    
+                    
+                   
+                    
+				}"
+                
+                 >
+                 
+				<core:ListItem key="{metadataModel>key}" text="{metadataModel>Name}" additionalText = "{key}"/>
+        </ComboBox  >
+           <ComboBox
+           class="sapUiLargeMargin"
+           id="leafComboBox" 
+           visible="{/leafSelected}"
+           change="onSelectedControls"
+        	items="{
+					path: 'metadataModel>/leafType',
+					sorter: { path: 'Name' }
+				}">
+				<core:ListItem key="{metadataModel>key}" text="{metadataModel>Name}" additionalText = "{key}"/>
+        </ComboBox>
+         <beginButton>
+         <Button
+            text="Insert"
+            press=".onCloseDialog"/>
+      </beginButton>
+      </Dialog>
+</core:FragmentDefinition>

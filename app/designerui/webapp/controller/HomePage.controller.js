@@ -17,24 +17,24 @@ sap.ui.define([
             onLayoutPress: function (oEvent) {
                 const oRouter = this.getOwnerComponent().getRouter();
                 var getID = oEvent.oSource.getProperty('info');
-                 // Replace with your layout ID
-                var url = "https://port4004-workspaces-ws-6pbtq.us10.trial.applicationstudio.cloud.sap/odata/v4/catalog/Layout(" + getID + ")?$expand=controls($expand=controlProperties)";
+               
+                // var url = "https://port4004-workspaces-ws-6pbtq.us10.trial.applicationstudio.cloud.sap/odata/v4/catalog/Layout(" + getID + ")?$expand=controls($expand=controlProperties)";
 
-                $.ajax({
-                    url: url,
-                    method: 'GET',
-                    success: function (data) {
-                        // Handle the successful response and work with the data
-                        console.log("Data:")
-                        var controlData=data.controls;
-                        console.log(controlData);
+                // $.ajax({
+                //     url: url,
+                //     method: 'GET',
+                //     success: function (data) {
+                //         // Handle the successful response and work with the data
+                //         console.log("Data:")
+                //         var controlData=data.controls;
+                //         console.log(controlData);
                         
-                    },
-                    error: function (xhr, textStatus, errorThrown) {
-                        // Handle the error
-                        console.error("Error:", errorThrown);
-                    }
-                });
+                //     },
+                //     error: function (xhr, textStatus, errorThrown) {
+                //         // Handle the error
+                //         console.error("Error:", errorThrown);
+                //     }
+                // });
 
 
                 oRouter.navTo("newLayout", {
@@ -55,11 +55,7 @@ sap.ui.define([
 
 
             },
-            // onTree: function()
-            // {
-            //     const oRouter = this.getOwnerComponent().getRouter();
-            //     oRouter.navTo("newTree");
-            // },
+           
             onSavingLayout: function (oEvent) {
                 var that = this;
                 var user = this.getView().byId("layoutIDforSavingDatbase");
@@ -67,7 +63,7 @@ sap.ui.define([
 
                 console.log(value);
                 const oRouter = this.getOwnerComponent().getRouter();
-                var layout_id = that.generateUUID();
+              
 
 
                 var data = {
@@ -97,12 +93,6 @@ sap.ui.define([
                     }
                 )
             },
-            generateUUID: function () {
-                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-                    var r = Math.random() * 16 | 0,
-                        v = c === 'x' ? r : (r & 0x3 | 0x8);
-                    return v.toString(16);
-                });
-            }
+          
         });
     });

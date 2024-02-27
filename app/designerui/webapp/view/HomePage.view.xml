@@ -24,12 +24,10 @@
             <!-- Button to Add New Layout -->
             <Button
                 text="Add New Layout"
+                icon="sap-icon://grid"
                 press="onAddLayoutPress"
             />
-            <Button
-                text="Tree"
-                press="onTree"
-            />
+          
         </content>
     </Page>
 
