@@ -706,9 +706,11 @@ sap.ui.define([
                 console.log("Printing payload");
                 console.log(oPayload);
 
+                var url = "https://port4004-workspaces-ws-6pbtq.us10.trial.applicationstudio.cloud.sap/odata/v4/catalog/Layout(" + idLayout + ")";
                 // Make an AJAX call to your backend to save the layout
                 $.ajax({
-                    url: this.getOwnerComponent().getModel().getServiceUrl() + 'Layout(' + idLayout + ')',
+                    url: url,
+                  //  url: that.getOwnerComponent().getModel().getServiceUrl() + 'Layout(' + idLayout + ')',
                     method: 'PATCH',
                     contentType: 'application/json',
                     data: JSON.stringify(oPayload),
