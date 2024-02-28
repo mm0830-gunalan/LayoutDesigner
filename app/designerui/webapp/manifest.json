@@ -67,7 +67,6 @@
         "settings": {
           "bundleName": "designerui.i18n.i18n"
         }
-        
       },
       "metadataModel": {
         "type": "sap.ui.model.json.JSONModel",
@@ -98,52 +97,42 @@
         "async": true,
         "viewPath": "designerui.view",
         "controlAggregation": "pages",
-        "controlId": "app",
-        "clearControlAggregation": false
+        "controlId": "app"
       },
       "routes": [
         {
           "name": "RouteHomePage",
-          "pattern": ":?query:",
-          "target": [
-            "TargetHomePage"
-          ]
+          "pattern": "",
+          "target": "TargetHomePage"
         },
         {
           "pattern": "newLayout/{id}",
           "name": "newLayout",
-          "target": ["newLayout"]
-      },
-      {
-        "pattern": "newTree",
-        "name": "newTree",
-        "target": ["newTree"]
-      }
+          "target": [
+            "newLayout"
+          ]
+        },
+        {
+          "pattern": "newTree",
+          "name": "newTree",
+          "target": [
+            "newTree"
+          ]
+        }
       ],
       "targets": {
         "TargetHomePage": {
           "viewType": "XML",
-          "transition": "slide",
-          "clearControlAggregation": false,
-          "viewId": "HomePage",
           "viewName": "HomePage"
         },
         "newLayout": {
           "viewType": "XML",
-          "transition": "slide",
-          "clearControlAggregation": false,
-          "viewId": "Canvas",
           "viewName": "Canvas"
-          
-      },
-      "newTree": {
-        "viewType": "XML",
-        "transition": "slide",
-        "clearControlAggregation": false,
-        "viewId": "Tree",
-        "viewName": "Tree"
-        
-    }
+        },
+        "newTree": {
+          "viewType": "XML",
+          "viewName": "Tree"
+        }
       }
     },
     "rootView": {

@@ -5,12 +5,15 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
-    "sap/m/MessageBox"
+    "sap/m/MessageBox",
+    "sap/ui/core/routing/History",
+    "sap/ui/core/UIComponent"
+
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, JSONModel, MessageBox) {
+    function (Controller, JSONModel, MessageBox, History, UIComponent) {
         "use strict";
         var temp;
         var globaloEvent;
@@ -18,7 +21,7 @@ sap.ui.define([
         var controlType;
 
 
-        return Controller.extend("designerui.controller.HomePage", {
+        return Controller.extend("designerui.controller.Canvas", {
             onInit: function () {
                 var oModel = new sap.ui.model.json.JSONModel({
                     items: [
@@ -43,7 +46,10 @@ sap.ui.define([
 
 
             onObjectMatched: function (oEvent) {
+
+
                 var that = this;
+                that.getView().getModel().refresh();
                 var oArgs = oEvent.getParameter("arguments");
                 var itemId = oArgs.id;
                 idLayout = itemId;
@@ -245,6 +251,7 @@ sap.ui.define([
 
 
             AddContainerAsPlusButton: function (oEvent) {
+                this.getView().getModel().setProperty("/radio", true);
 
                 temp = true;
 
@@ -273,6 +280,7 @@ sap.ui.define([
 
 
             AddContainer: function (oEvent) {
+                this.getView().getModel().setProperty("/radio", false);
 
 
 
@@ -315,9 +323,7 @@ sap.ui.define([
                     case "VBox":
                         oContainer = new sap.m.VBox({ id: "container_" + new Date().getTime() });
                         break;
-                    case "Input":
-                        oContainer = new sap.m.Input({ placeholder: "Enter text", id: "control_" + new Date().getTime() });
-                        break;
+
                     default:
 
                         break;
@@ -496,6 +502,9 @@ sap.ui.define([
                         break;
                     case "RadioButton":
                         oContainer = new sap.m.RadioButton({ text: "Option 1", id: "control_" + that.generateUUID() });
+                        break;
+                    default:
+
                         break;
                 }
 
@@ -751,7 +760,9 @@ sap.ui.define([
                 this.pDialog.then((oDialog) => oDialog.open());
             },
             onSelectedControls: function (oEvent) {
-                var selectedContainerType = oEvent.getParameter('value');
+                //this is for change method
+                // var selectedContainerType = oEvent.getParameter('value');
+                var selectedContainerType = oEvent.getParameters().selectedItem.mProperties.text;
                 controlType = selectedContainerType;
                 console.log(controlType);
 
@@ -769,7 +780,14 @@ sap.ui.define([
                 }
 
 
-                this.byId("containerList").close();
+                var oDialog = this.byId("containerList");
+                if (oDialog) {
+                    oDialog.close();
+                }
+                
+                this.getView().byId("leafComboBox").setSelectedKey("");
+                this.getView().byId("containerComboBox").setSelectedKey("");
+
             },
             onRadioButtonSelect: function (oEvent) {
                 var bContainerSelected = oEvent.getParameter("selectedIndex") === 0; // Index 0 is for Container
@@ -780,6 +798,28 @@ sap.ui.define([
                 this.getView().getModel().setProperty("/leafSelected", bLeafSelected);
                 var data = this.getView().getModel().getProperty("/containerSelected");
                 console.log(data);
+                this.getView().byId("leafComboBox").setSelectedKey("");
+                this.getView().byId("containerComboBox").setSelectedKey("");
+            },
+            onNavBack: function () {
+                var oHistory, sPreviousHash;
+                // var view=this.getView().getModel("oDataModel").refresh(true);
+
+                oHistory = History.getInstance();
+                sPreviousHash = oHistory.getPreviousHash();
+
+                if (sPreviousHash !== undefined) {
+                    window.history.go(-1);
+
+                } else {
+                    this.getRouter().navTo("RouteHomePage");
+                }
+
+                
+
+            },
+            getRouter: function () {
+                return UIComponent.getRouterFor(this);
             },
 
 

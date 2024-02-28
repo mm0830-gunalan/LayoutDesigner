@@ -12,7 +12,15 @@ sap.ui.define([
 
         return Controller.extend("designerui.controller.HomePage", {
             onInit: function () {
+                
 
+                var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                oRouter.getRoute("RouteHomePage").attachPatternMatched(this.onObjectMatched, this);
+
+            },
+            onObjectMatched:function()
+            {
+                    this.getView().getModel("oDataModel").refresh();
             },
             onLayoutPress: function (oEvent) {
                 const oRouter = this.getOwnerComponent().getRouter();

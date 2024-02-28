@@ -9,7 +9,11 @@
     <App>
         <pages>
             <!-- Header -->
-            <Page title="Fiori Layout Designer">
+            <Page
+                title="Fiori Layout Designer"
+                showNavButton="true"
+                navButtonPress="onNavBack"
+            >
                 <headerContent>
                     <!-- Device View Buttons -->
                     <SegmentedButton>
@@ -25,7 +29,7 @@
                         text="Source Code"
                         press="onToggleSourceCode"
                     /> -->
-                    <Button text="dialog" press="onOpenDialog"></Button>
+                  
                 </headerContent>
 
                 <!-- Content -->
@@ -33,21 +37,18 @@
                     <l:ResponsiveSplitter defaultPane="default">
                         <l:PaneContainer>
                             <!-- Left Panel - Control Palette -->
-                            <l:SplitPane requiredParentWidth="400">
+                            <l:SplitPane requiredParentWidth="400" >
                                 <Panel height="100%">
                                     <Button
                                         text="AddContainer"
                                         press="AddContainer"
-                                         
                                     />
                                     <Tree
                                         id="Tree"
                                         items="{path: '/items'}"
                                         mode="None"
-                                         
-                                        
                                     >
-                                        <CustomTreeItem >
+                                        <CustomTreeItem>
                                             <FlexBox
                                                 alignItems="Start"
                                                 width="100%"
@@ -58,9 +59,11 @@
                                                         press="AddContainerAsPlusButton"
                                                         class="sapUiSmallMarginEnd"
                                                         enabled="{=!${buttonEnabled}}"
-                                                        
                                                     />
-                                                    <Text text="{text}" class="sapUiTinyMargin">
+                                                    <Text
+                                                        text="{text}"
+                                                        class="sapUiTinyMargin"
+                                                    >
                                                         <layoutData>
                                                             <FlexItemData
                                                                 growFactor="0"
@@ -129,7 +132,6 @@
         </List>
     </Popover>
     <Popover
-        
         id="addControl"
         title="Select Control"
         placement="Auto"
@@ -146,13 +148,15 @@
         </List>
     </Popover>
 
-    <Popover id="dropDown" placement="Auto">
+    <Popover
+        id="dropDown"
+        placement="Auto"
+    >
         <content>
             <Select
                 forceSelection="true"
                 selectedKey="{/SelectedValue}"
                 change="onChange"
-                
             >
                 <core:ListItem
                     key="Select"

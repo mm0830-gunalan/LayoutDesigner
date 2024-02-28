@@ -38,7 +38,7 @@ Content-Type: application/json
 
 ###
 
-Delete  http://localhost:4004/odata/v4/catalog/Layout/541a0fc5-14a0-48a3-bcea-4b548dd104ea
+Delete  http://localhost:4004/odata/v4/catalog/Layout/120d003d-f479-4a32-aba2-06b12e1bab90
 ###
 PATCH  http://localhost:4004/odata/v4/catalog/ControlProperty(controlID="9223b912-5b77-4ea2-a926-fc24f5ca27b0",propertyName="500px")
 Content-Type: application/json

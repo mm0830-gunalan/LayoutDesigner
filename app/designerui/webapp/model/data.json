@@ -1,70 +1,78 @@
 {
     "containerType" : [
+
+
+        
         {
+
             "key" : "sap.m.HBox",
-            "Name" : "HBox"
+            "Name" : "HBox",
+            "Description": "Horizontal Box Layout"
         },
         {
             "key" : "sap.m.VBox",
-            "Name" : "VBox"
-        },
-        {
-            "key" : "sap.ui.layout.Grid",
-            "Name" : "Grid"
-        },
-        {
-            "key" : "sap.m.FlexBox",
-            "Name" : "FlexBox"
-        },
-        {
-            "key":"sap.m.Input",
-            "Name":"Input"
+            "Name" : "VBox",
+            "Description": "Vertical Box  Layout"
         }
+
+
+
     ],
     "leafType" : [
         {
             "key" : "sap.m.Input",
-            "Name" : "Input" 
+            "Name" : "Input",
+            "Description": "Input Field"
         },
         {
             "key" : "sap.m.Button",
-            "Name" : "Button" 
+            "Name" : "Button",
+            "Description": "Button Control"
         },
         {
             "key" : "sap.m.Text",
-            "Name" : "Text" 
+            "Name" : "Text",
+            "Description": "Text Control"
         },
         {
             "key" : "sap.m.CheckBox",
-            "Name" : "CheckBox" 
+            "Name" : "CheckBox",
+            "Description": "Check Box Control"
         },
         {
             "key" : "sap.m.DatePicker",
-            "Name" : "DatePicker" 
+            "Name" : "DatePicker",
+            "Description": "Date Picker Control"
         },
         {
             "key" : "sap.m.Slider",
-            "Name" : "Slider" 
+            "Name" : "Slider",
+            "Description": "Slider Control"
         },
         {
             "key" : "sap.m.ComboBox",
-            "Name" : "ComboBox" 
+            "Name" : "ComboBox",
+            "Description": "Combo Box Control"
         },
         {
             "key" : "sap.m.List",
-            "Name" : "List" 
+            "Name" : "List",
+            "Description": "List Control"
         },
         {
             "key" : "sap.m.Link",
-            "Name" : "Link" 
+            "Name" : "Link",
+            "Description": "Link Control"
         },
         {
             "key" : "sap.m.Switch",
-            "Name" : "Switch" 
+            "Name" : "Switch",
+            "Description": "Switch Control"
         },
         {
             "key" : "sap.m.RadioButton",
-            "Name" : "RadioButton" 
+            "Name" : "RadioButton",
+            "Description": "Radio Button Control"
         }
     ]
 }

@@ -4,11 +4,11 @@
    <Dialog
       id="containerList"
       title="Select ">
-      	<HBox class="sapUiLargeMargin">
+      	<HBox class="sapUiTinyMargin">
 		
 		<RadioButtonGroup id="selectWhichOne" select=".onRadioButtonSelect">
 			<RadioButton text="Container" selected="false" />
-			<RadioButton text="LeafNode" />
+			<RadioButton text="LeafNode" enabled="{/radio}" />
 			
 		</RadioButtonGroup>
 	</HBox>
@@ -16,7 +16,8 @@
         <ComboBox 
         class="sapUiLargeMargin"
         id="containerComboBox"
-        change="onSelectedControls"
+        selectionChange="onSelectedControls"
+        showSecondaryValues="true"
         visible="{/containerSelected}"
         	items="{
 					path: 'metadataModel>/containerType',
@@ -29,18 +30,22 @@
                 
                  >
                  
-				<core:ListItem key="{metadataModel>key}" text="{metadataModel>Name}" additionalText = "{key}"/>
+				<core:ListItem key="{metadataModel>key}" text="{metadataModel>Name}" additionalText = "{metadataModel>Description}"/>
         </ComboBox  >
            <ComboBox
            class="sapUiLargeMargin"
            id="leafComboBox" 
            visible="{/leafSelected}"
-           change="onSelectedControls"
+           selectionChange="onSelectedControls"
+           
+           showSecondaryValues="true"
+           
         	items="{
 					path: 'metadataModel>/leafType',
 					sorter: { path: 'Name' }
 				}">
-				<core:ListItem key="{metadataModel>key}" text="{metadataModel>Name}" additionalText = "{key}"/>
+             <core:Item key="" text="-----SELECT----" />
+				<core:ListItem key="{metadataModel>key}" text="{metadataModel>Name}" additionalText = "{metadataModel>Description}"/>
         </ComboBox>
          <beginButton>
          <Button
