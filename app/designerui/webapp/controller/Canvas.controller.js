@@ -86,7 +86,7 @@ sap.ui.define([
                                     text: control.controltype,
                                     ref: "sap-icon://add",
                                     ParentID: control.ParentID,
-                                    parentId: control.controlId, // Assuming you want to use controlId as parentId
+                                    parentId: control.controlId, // ControlID
                                     isContainer: control.isContainer,
                                     nodes: []
                                 }
@@ -96,7 +96,7 @@ sap.ui.define([
                                     text: control.controltype,
                                     ref: "sap-icon://add",
                                     ParentID: control.ParentID,
-                                    parentId: control.controlId, // Assuming you want to use controlId as parentId
+                                    parentId: control.controlId, // this is Control ID
                                     isContainer: control.isContainer,
                                     buttonEnabled: true,
                                     nodes: []
@@ -409,7 +409,7 @@ sap.ui.define([
                         // Add the new control to the parent container
                         oParentContainer.addItem(oContainer);
                     } else {
-                        // Handle the case when the parent container reference is not found
+                        
                         console.error("Parent container not found.");
                     }
 
@@ -554,7 +554,7 @@ sap.ui.define([
                         // Add the new control to the parent container
                         oParentContainer.addItem(oContainer);
                     } else {
-                        // Handle the case when the parent container reference is not found
+                        
                         console.error("Parent container not found.");
                     }
 
@@ -604,7 +604,7 @@ sap.ui.define([
                 // Construct the payload to be sent to the backend
                 var oPayload = {
 
-                    controls: [] // Array to store controls and their properties
+                    controls: [] // Array to store controls
                 };
 
                 // layoutID is coming from paramter as a Global variable
@@ -740,7 +740,7 @@ sap.ui.define([
                 });
             },
 
-            // Function to generate a UUID (replace this with your UUID generation logic)
+            // Function to generate a UUID 
             generateUUID: function () {
                 return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
                     var r = Math.random() * 16 | 0,
@@ -752,7 +752,7 @@ sap.ui.define([
 
             //working for fragment
             onOpenDialog() {
-                // create dialog lazily
+               
                 this.pDialog ??= this.loadFragment({
                     name: "designerui.view.Control"
                 });
@@ -790,7 +790,7 @@ sap.ui.define([
 
             },
             onRadioButtonSelect: function (oEvent) {
-                var bContainerSelected = oEvent.getParameter("selectedIndex") === 0; // Index 0 is for Container
+                var bContainerSelected = oEvent.getParameter("selectedIndex") === 0; // Index 0 is for Container that means first item is selected
                 var bLeafSelected = !bContainerSelected;
 
 
@@ -821,7 +821,13 @@ sap.ui.define([
             getRouter: function () {
                 return UIComponent.getRouterFor(this);
             },
-
+            onCloseXButton: function()
+            {
+                var oDialog = this.byId("containerList");
+                if (oDialog) {
+                    oDialog.close();
+                }
+            }
 
 
 

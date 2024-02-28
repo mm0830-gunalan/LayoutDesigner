@@ -4,6 +4,18 @@
    <Dialog
       id="containerList"
       title="Select ">
+          <customHeader>
+            <Bar>
+            <contentLeft>
+            <Title text="Pick Elements"></Title>
+            </contentLeft>
+
+                
+                <contentRight>
+                    <Button type="Reject" icon="sap-icon://decline" press=".onCloseXButton" />
+                </contentRight>
+            </Bar>
+        </customHeader>
       	<HBox class="sapUiTinyMargin">
 		
 		<RadioButtonGroup id="selectWhichOne" select=".onRadioButtonSelect">

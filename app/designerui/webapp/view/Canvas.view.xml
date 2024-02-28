@@ -24,11 +24,7 @@
                         </items>
                     </SegmentedButton>
 
-                    <!-- Source Code Button -->
-                    <!-- <Button
-                        text="Source Code"
-                        press="onToggleSourceCode"
-                    /> -->
+                   
                   
                 </headerContent>
 
@@ -81,11 +77,12 @@
                                 </l:layoutData>
                             </l:SplitPane>
 
-                            <!-- Add other controls here -->
+                          
 
                             <!-- Center Panel - Canvas -->
                             <l:SplitPane>
                                 <!-- Dynamically render controls based on user selection -->
+
                                 <l:VerticalLayout
                                     id="designCanvas"
                                     width="100%"
@@ -95,7 +92,7 @@
                                 </l:VerticalLayout>
                             </l:SplitPane>
 
-                            <!-- Right Panel - Properties -->
+                        
                         </l:PaneContainer>
                     </l:ResponsiveSplitter>
                 </content>
