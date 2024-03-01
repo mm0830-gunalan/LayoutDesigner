@@ -8,14 +8,24 @@ entity Books {
 }
 
 // Layout Entity
+// entity Credential {
+//   key userName   : String;
+//       password : String(255);
+
+//       layouts    : Composition of many Layout
+//                       on layouts.userName = $self.userName;
+// // One-to-Many relationship with Control, based on matching layout_id
+// }
 
 entity Layout {
   key layout_id   : UUID;
+      author      : String @cds.on.insert: $user;
       layout_name : String(255);
       created_at  : DateTime default CURRENT_TIMESTAMP;
       modifiedAt  : DateTime default CURRENT_TIMESTAMP;
       controls    : Composition of many Control
                       on controls.layout_id = $self.layout_id;
+
 // One-to-Many relationship with Control, based on matching layout_id
 }
 

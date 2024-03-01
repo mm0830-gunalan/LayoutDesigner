@@ -27,7 +27,18 @@
     },
     "cds": {
         "requires": {
-            "db": "hana"
+            "db": "hana",
+            "kind":"mocked",
+            "users": {
+                "mm0830": {
+                  "password": "1",
+                  "roles": ["Admin", "dev"]
+                },
+                "mm0831": {
+                    "password": "1",
+                    "roles": ["Admin", "dev"]
+                  }
+              }
         }
     }
 }

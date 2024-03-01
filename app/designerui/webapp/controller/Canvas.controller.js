@@ -7,13 +7,15 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageBox",
     "sap/ui/core/routing/History",
-    "sap/ui/core/UIComponent"
+    "sap/ui/core/UIComponent",
+    "sap/ui/layout/Grid",
+    "sap/m/Text",
 
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, JSONModel, MessageBox, History, UIComponent) {
+    function (Controller, JSONModel, MessageBox, History, UIComponent, Grid, Text) {
         "use strict";
         var temp;
         var globaloEvent;
@@ -63,11 +65,14 @@ sap.ui.define([
                 var oModel = this.getView().getModel();
                 this.getView().getModel().setProperty("/items", []);
                 var that = this;
-
-                var url = "https://port4004-workspaces-ws-6pbtq.us10.trial.applicationstudio.cloud.sap/odata/v4/catalog/Layout(" + idLayout + ")?$expand=controls($expand=controlProperties)";
+                var sHost = window.location.host;
+                console.log(sHost);
+                var dynamicUrl = "//" + sHost + "/odata/v4/catalog/Layout(" + idLayout + ")?$expand=controls($expand=controlProperties)";
+                //let url= this.getOwnerComponent().getModel("oDataModel").getServiceUrl()+'Layout(' + idLayout + ')';
+                //  var url = "https://port4004-workspaces-ws-6pbtq.us10.trial.applicationstudio.cloud.sap/odata/v4/catalog/Layout(" + idLayout + ")?$expand=controls($expand=controlProperties)";
 
                 $.ajax({
-                    url: url,
+                    url: dynamicUrl,
                     method: 'GET',
                     success: function (data) {
 
@@ -409,7 +414,7 @@ sap.ui.define([
                         // Add the new control to the parent container
                         oParentContainer.addItem(oContainer);
                     } else {
-                        
+
                         console.error("Parent container not found.");
                     }
 
@@ -539,9 +544,13 @@ sap.ui.define([
 
                     // Get the nodes array from the model
                     var aNodes = oModel.getProperty(sPath + "/nodes") || [];
+                    console.log("printing a nodes")
+                    console.log(aNodes)
 
                     // Add the new node to the nodes array
                     aNodes.push(oNewNode);
+                    console.log("now printign all nodes");
+                    console.log(aNodes);
 
                     // Set the updated nodes array back to the model
                     oModel.setProperty(sPath + "/nodes", aNodes);
@@ -554,7 +563,7 @@ sap.ui.define([
                         // Add the new control to the parent container
                         oParentContainer.addItem(oContainer);
                     } else {
-                        
+
                         console.error("Parent container not found.");
                     }
 
@@ -712,8 +721,10 @@ sap.ui.define([
                 });
                 console.log("Printing payload");
                 console.log(oPayload);
+                let url = this.getOwnerComponent().getModel("oDataModel").getServiceUrl() + 'Layout(' + idLayout + ')';
 
-                var url = "https://port4004-workspaces-ws-6pbtq.us10.trial.applicationstudio.cloud.sap/odata/v4/catalog/Layout(" + idLayout + ")";
+
+                // var url = "https://port4004-workspaces-ws-6pbtq.us10.trial.applicationstudio.cloud.sap/odata/v4/catalog/Layout(" + idLayout + ")";
                 // TO save the layout on the Database
                 $.ajax({
                     url: url,
@@ -752,7 +763,7 @@ sap.ui.define([
 
             //working for fragment
             onOpenDialog() {
-               
+
                 this.pDialog ??= this.loadFragment({
                     name: "designerui.view.Control"
                 });
@@ -784,7 +795,7 @@ sap.ui.define([
                 if (oDialog) {
                     oDialog.close();
                 }
-                
+
                 this.getView().byId("leafComboBox").setSelectedKey("");
                 this.getView().byId("containerComboBox").setSelectedKey("");
 
@@ -815,20 +826,36 @@ sap.ui.define([
                     this.getRouter().navTo("RouteHomePage");
                 }
 
-                
+
 
             },
             getRouter: function () {
                 return UIComponent.getRouterFor(this);
             },
-            onCloseXButton: function()
-            {
+            onCloseXButton: function () {
                 var oDialog = this.byId("containerList");
                 if (oDialog) {
                     oDialog.close();
                 }
-            }
+            },
 
+
+            // for different types of views
+
+            // onMobilePress: function () {
+            //     this.createMobileView();
+            //   },
+            //   createMobileView: function () {
+            //     var oGrid = new Grid({
+            //       defaultSpan: "XL3 L3 M3 S6",
+            //       content: [
+            //         new Text({ text: "Mobile View Content" })
+            //       ]
+            //     });
+
+            //     this.getView().byId("designCanvas").destroyContent();
+            //     this.getView().byId("designCanvas").addContent(oGrid);
+            //   },
 
 
 

@@ -2,7 +2,11 @@ get http://localhost:4004/odata/v4/catalog/ControlProperty?$filter=controlID eq 
 
 ###
 
-get http://localhost:4004/odata/v4/catalog/Control/9223b912-5b77-4ea2-a926-fc24f5ca27b0
+get http://localhost:4000/odata/v4/catalog/Control/9223b912-5b77-4ea2-a926-fc24f5ca27b0
+
+Authorization: bW0wODMxOjE=
+
+
 ###
 
 
@@ -17,8 +21,9 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:4004/odata/v4/catalog/Layout
+POST http://localhost:36597/odata/v4/catalog/Layout
 Content-Type: application/json
+Authorization: bW0wODMwOjE=
 
 {
     "layout_name":"lakife "

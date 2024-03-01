@@ -23,6 +23,7 @@ sap.ui.define([
                     this.getView().getModel("oDataModel").refresh();
             },
             onLayoutPress: function (oEvent) {
+
                 const oRouter = this.getOwnerComponent().getRouter();
                 var getID = oEvent.oSource.getProperty('info');
                
@@ -65,6 +66,8 @@ sap.ui.define([
             },
            
             onSavingLayout: function (oEvent) {
+                var sHost = window.location.host;
+                console.log(sHost);
                 var that = this;
                 var user = this.getView().byId("layoutIDforSavingDatbase");
                 var value = user.getValue();
@@ -79,10 +82,11 @@ sap.ui.define([
                     "layout_name": value
 
                 };
-                var url = 'https://port4004-workspaces-ws-6pbtq.us10.trial.applicationstudio.cloud.sap/odata/v4/catalog/Layout';
-                $.ajax(
+             //   var url = 'https://port4004-workspaces-ws-6pbtq.us10.trial.applicationstudio.cloud.sap/odata/v4/catalog/Layout';
+             var dynamicUrl = "//" + sHost + "/odata/v4/catalog/Layout";
+             $.ajax(
                     {
-                        url: url,
+                        url: dynamicUrl,
                         method: 'post',
                         contentType: 'application/json',
                         data: JSON.stringify(data),

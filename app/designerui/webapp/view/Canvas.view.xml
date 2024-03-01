@@ -18,7 +18,7 @@
                     <!-- Device View Buttons -->
                     <SegmentedButton>
                         <items>
-                            <SegmentedButtonItem text="Mobile" />
+                            <SegmentedButtonItem text="Mobile" press="onMobilePress" />
                             <SegmentedButtonItem text="Desktop" />
                             <SegmentedButtonItem text="Tablet" />
                         </items>
@@ -87,7 +87,9 @@
                                     id="designCanvas"
                                     width="100%"
                                     class="canvas"
+                                    
                                 >
+                                
                                     <!-- Controls added dynamically will appear here -->
                                 </l:VerticalLayout>
                             </l:SplitPane>
